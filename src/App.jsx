@@ -2,13 +2,20 @@ import React, { useState } from 'react';
 import './App.css';
 
 export const App = () => {
-  const [selectedColor, setSelectedColor] = useState('white');
-  const colors = ['red', 'green', 'blue', 'yellow', 'brown'];
+  const [selectedColor, setSelectedColor] = useState( { name: 'fehér', value: 'white'});
+  const colors = [{ name:'piros', value: 'red' }, 
+    { name:'kek', value: 'blue' },
+    { name:'zold', value: 'green' },
+    { name:'sarga', value: 'yellow' },
+    { name:'rózsaszín', value: 'pink' }];
   return (
     <div>
-      <h2>Color Picker</h2>
-      <ColorSelector colors={colors} onSelect={setSelectedColor} />
-      <ColorBox color={selectedColor} />
+      <h2>Színválasztó</h2>
+      <ColorSelector colors={colors} onSelect={((colorValue) =>
+      { const selected = colors.find(color => color.value === colorValue);
+        setSelectedColor(selected);
+      })} />
+      <ColorBox colorName={selectedColor.name} colorValue={selectedColor.value} />
     </div>
   );
 }
@@ -18,21 +25,21 @@ const ColorSelector = ({ colors, onSelect }) => {
       <div>
         {colors.map((color, index) => (
           <button key={index}
-            onClick={() => onSelect(color)} style={{ margin: '5px' }}>
-            {color}
+            onClick={() => onSelect(color.value)} style={{ margin: '5px' }}>
+            {color.name}
           </button>
         ))}
       </div>
   );
 }
-const ColorBox = ({ color }) => {
+const ColorBox = ({ colorName, colorValue }) => {
   return(
     <div style={{ 
       height: '200px', width: '200px', 
-      margin: '20px auto', backgroundColor: color 
+      margin: '20px auto', backgroundColor: colorValue 
       }}>
       <p style={{ color: 'white', textAlign: 'center'}}>
-        Selected color: {color}</p>
+        Kiválasztott szín: {colorName}</p>
     </div>
   );
 };
