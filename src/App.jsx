@@ -3,7 +3,7 @@ import './App.css';
 
 export const App = () => {
   const [selectedColor, setSelectedColor] = useState('white');
-  const colors = ['red', 'green', 'blue', 'yellow', 'pink'];
+  const colors = ['red', 'green', 'blue', 'yellow', 'brown'];
   return (
     <div>
       <h2>Color Picker</h2>
